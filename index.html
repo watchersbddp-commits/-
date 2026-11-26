@@ -2341,6 +2341,35 @@
         } else if (code === 'lucky7777777') {
           state.tickets += 100;
           showToast('🎫 치트키 적용: 골든티켓 +100개!');
+        } else if (code === '121248') {
+          const tier = TIER_MAP['special'] || TIERS.find(t => String(t.id).toLowerCase() === 'special');
+          const weaponName = '세계수의 힘을담은 세계수의 지팡이';
+          const created = typeof createWeapon === 'function' ? createWeapon('special', weaponName) : null;
+          const wandWeapon = (created && typeof created === 'object')
+            ? {
+                ...created,
+                tierId: 'special',
+                tierName: tier?.name || 'SPECIAL',
+                name: weaponName,
+                atk: created.atk || tier?.baseAtk || 25000000000,
+                sell: created.sell || tier?.sell || 27000000000
+              }
+            : {
+                id: 'w_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+                tierId: 'special',
+                tierName: tier?.name || 'SPECIAL',
+                name: weaponName,
+                level: 1,
+                star: 0,
+                transcend: 0,
+                atk: tier?.baseAtk || 25000000000,
+                sell: tier?.sell || 27000000000
+              };
+          state.inventory.push(wandWeapon);
+          if (typeof registerWeaponCodex === 'function') {
+            registerWeaponCodex(wandWeapon.name);
+          }
+          showToast(`🌿 치트키 적용: [${wandWeapon.name}] 획득!`);
         } else if (code === 'hope7878') {
           const tier = TIER_MAP['special'] || TIERS.find(t => String(t.id).toLowerCase() === 'special');
           const weaponName = '희망과 꿈을 품은 대검 호피스트릿';
