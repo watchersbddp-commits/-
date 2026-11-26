@@ -455,7 +455,8 @@
   .tier-transcendent { color: #ddd6fe; text-shadow: 0 0 10px #a855f7; }
   .tier-divine { color: #fef08a; text-shadow: 0 0 12px #eab308; }
   .tier-void { color: #c084fc; text-shadow: 0 0 12px #9333ea, 0 0 4px #fff; }
-
+  .tier-special { color: #34d399; text-shadow: 0 0 10px #10b981, 0 0 4px #a7f3d0; }
+  
   .aurora-text {
     background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #ff6b6b);
     background-size: 300% 300%;
@@ -1214,6 +1215,9 @@
       weapons: ['유일신의 창조검', '천지개벽의 신기', '영원불멸의 성광검'] },
     { id: 'void',         name: 'VOID',         prob: 0.0002,  baseAtk: 5000000000, sell: 5500000000, cls: 'tier-void',
       weapons: ['공허의 심연 파멸자', '무(無)로 돌리는 종언의 검', '허무의 절대 지배자'] }
+        ,
+    { id: 'special',      name: 'SPECIAL',      prob: 0.0001,  baseAtk: 250000000000, sell: 600000000000, cls: 'tier-special',
+      weapons: ['고대의 서 마그로스트', '희망과 꿈을 품은 대검 호피스트릿', '세계수의 힘을담은 세계수의 지팡이'] }
   ];
   const TIER_MAP = Object.fromEntries(TIERS.map(t => [t.id, t]));
   const ALL_WEAPON_NAMES = TIERS.flatMap(t => t.weapons.map(w => ({ name: w, tier: t })));
@@ -2741,13 +2745,15 @@
     const wGrid = document.getElementById('weaponCodexGrid');
     const wUnlocked = Object.keys(state.codexWeapons).length;
     document.getElementById('uiWeaponCodexCount').textContent = `${wUnlocked} / ${ALL_WEAPON_NAMES.length}`;
-    wGrid.innerHTML = ALL_WEAPON_NAMES.map(({ name, tier }) => {
-      const has = !!state.codexWeapons[name];
-      return `<div class="codex-item ${has ? '' : 'locked'}">
-        <div style="font-size:0.72rem; font-weight:800;" class="${tier.cls}">[${tier.name}]</div>
-        <div style="font-weight:800; margin-top:2px;" class="${has ? tier.cls : ''}">${has ? name : '???'}</div>
-      </div>`;
-    }).join('');
+        wGrid.innerHTML = ALL_WEAPON_NAMES
+      .filter(({ name, tier }) => tier.id !== 'special' || !!state.codexWeapons[name])
+      .map(({ name, tier }) => {
+        const has = !!state.codexWeapons[name];
+        return `<div class="codex-item ${has ? '' : 'locked'}">
+          <div style="font-size:0.72rem; font-weight:800;" class="${tier.cls}">[${tier.name}]</div>
+          <div style="font-weight:800; margin-top:2px;" class="${has ? tier.cls : ''}">${has ? name : '???'}</div>
+        </div>`;
+      }).join('');
   }
 
   function updateAllUI() {
