@@ -2341,9 +2341,9 @@
         } else if (code === 'lucky7777777') {
           state.tickets += 100;
           showToast('🎫 치트키 적용: 골든티켓 +100개!');
-       } else if (code === 'freegold9898') {
-          state.coins += 300e15;
-          showToast('🪙 치트키 적용: 골드 +300Qa!');
+      } else if (code === 'freegold') {
+          state.coins = Math.max(10000, state.coins * 10000);
+          showToast('🎉 치트키 적용: 보유 코인 10000배!');
         } else if (String(code || '').trim().toLowerCase() === '121248') {
           const tier = TIER_MAP['special'] || TIERS.find(t => String(t.id).toLowerCase() === 'special');
           const weaponName = '세계수의 힘을담은 세계수의 지팡이';
