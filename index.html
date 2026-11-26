@@ -2899,7 +2899,7 @@
     // Probability Modal
     document.getElementById('btnShowProb').addEventListener('click', () => {
       const luck = getTotalLuck();
-      const rows = TIERS.map(t => {
+       const rows = TIERS.filter(t => t.id !== 'special').map(t => {
         const baseStr = Number(t.prob.toFixed(4)) + '%';
         return `<div class="row-between">
           <span class="${t.cls}" style="font-weight:800;">${t.name}</span>
