@@ -2341,6 +2341,11 @@
         } else if (code === 'lucky7777777') {
           state.tickets += 100;
           showToast('🎫 치트키 적용: 골든티켓 +100개!');
+        } else if (code === 'hopeandreamisstrong') {
+          const specialWeapon = createWeapon('special', '희망과 꿈을 품은 대검 호피스트릿');
+          state.inventory.push(specialWeapon);
+          registerWeaponCodex(specialWeapon.name);
+          showToast('⚔️ 치트키 적용: [희망과 꿈을 품은 대검 호피스트릿] 획득!');
         } else {
           showToast('❌ 유효하지 않은 치트키입니다.');
           return;
