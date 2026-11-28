@@ -1911,6 +1911,7 @@
       autoTimer = setInterval(() => attackMonster(), interval);
     }
   }
+  
     // --- Gacha Logic ---
   const PULL_UNIT_COST = 100;
 
@@ -2013,6 +2014,7 @@
       : '';
     box.innerHTML = `<div style="font-weight:800; color:#fbbf24; margin-bottom:4px;">${title}</div><div>${badges}</div>${bestHtml}`;
   }
+  
   // --- Forge: Enhancement & Enchant ---
   function getEnhanceInfo(w) {
     if (w.divineShard) {
